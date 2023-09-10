@@ -9,7 +9,7 @@ class Question(models.Model):
     A question that can be voted on.
     """
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', auto_now_add=False)
     end_date = models.DateTimeField('ending date', null=True, blank=True)
 
     def was_published_recently(self):
