@@ -6,13 +6,17 @@ from django.urls import reverse
 from .models import Question
 
 
-def create_question(question_text, days):
+def create_question(question_text, days=0, end_date=None):
     """
     Create a question with the given `question_text` and published the
     given number of `days` offset to now (negative for questions published
     in the past, positive for questions that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
+    if end_date is not None:
+        end = time + datetime.timedelta(days=end_date)
+        return Question.objects.create(question_text=question_text,
+                                       pub_date=time, end_date=end)
     return Question.objects.create(question_text=question_text, pub_date=time)
 
 
@@ -74,7 +78,6 @@ class QuestionIndexViewTests(TestCase):
         )
 
 class QuestionModelTests(TestCase):
-
     def test_was_published_recently_with_future_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
@@ -103,6 +106,63 @@ class QuestionModelTests(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
+    def test_future_pub_date(self):
+        """
+        is_published() should return False for a question with a future publication date.
+        """
+        # future_time = timezone.now() + timezone.timedelta(days=1)
+        future_question = create_question(question_text='Future question.', days=4)
+        self.assertFalse(future_question.is_published())
+
+    def test_default_pub_date(self):
+        """
+        is_published() should return True for a question with the default publication date (now).
+        """
+        # now = timezone.now()
+        default_question = create_question(question_text='Present question.')
+        self.assertTrue(default_question.is_published())
+
+    def test_past_pub_date(self):
+        """
+        is_published() should return True for a question with a past publication date.
+        """
+        past_question = create_question(question_text='Past question.', days=-1)
+        self.assertTrue(past_question.is_published())
+
+    def test_can_vote_when_end_date_is_none(self):
+        """
+        Users can vote when the end_date is None (unlimited voting period).
+        """
+        unlimited_voting_question = create_question(
+            question_text='None end date')
+        self.assertTrue(unlimited_voting_question.can_vote())
+
+    def test_can_vote_when_within_voting_period(self):
+        """
+        Users can vote when within the specified voting period (pub_date <= current time <= end_date).
+        """
+        question = create_question(question_text='One day polls', days=-1,
+                                   end_date=3)
+        self.assertTrue(question.can_vote())
+
+    def test_cannot_vote_before_pub_date(self):
+        """
+        Users cannot vote before the publication date.
+        """
+        future_question = create_question(question_text='Future Question',
+                                          days=1)
+        self.assertFalse(future_question.can_vote())
+
+    def test_cannot_vote_after_end_date(self):
+        """
+        Users cannot vote if the end_date is in the past.
+        """
+        expired_question = create_question(question_text='Expired Question',
+                                           days=-5,
+                                           end_date=-1)
+        self.assertFalse(expired_question.can_vote())
+
+
 class QuestionDetailViewTests(TestCase):
     def test_future_question(self):
         """
@@ -123,3 +183,5 @@ class QuestionDetailViewTests(TestCase):
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+
