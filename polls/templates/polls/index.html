@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
@@ -8,6 +13,11 @@
             <li>{% if message.tags %} {{ message }} {% endif %}</li>
     {% endfor %}
 </ul>
+{% endif %}
+{% if user.is_authenticated %}
+    <body>Welcome back, {{user.username.title}}</body>
+{% else %}
+    Please <a href="{% url 'login' %?next={{request.path}}" >Login</a> to continue.
 {% endif %}
 
 {% if latest_question_list %}
@@ -22,3 +32,5 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
+</html>
