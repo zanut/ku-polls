@@ -31,8 +31,8 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Vision Statement](../../wiki/Vision%20Statement)
 - [Requirements](../../wiki/Requirements)
 - [Development Plan](../../wiki/Development-Plan)
-- [Iteration 1 Plan](../../Iteration-1-Plan)
-- [Iteration 2 Plan](../../iteration-2-Plan)
-- [Iteration 3 Plan](../../iteration-3-Plan)
+- [Iteration 1 Plan](../../wiki/Iteration-1-Plan)
+- [Iteration 2 Plan](../../wiki/iteration-2-Plan)
+- [Iteration 3 Plan](../../wiki/iteration-3-Plan)
 
 [django-tutorial]: https://docs.djangoproject.com/en/4.1/intro/tutorial01/
