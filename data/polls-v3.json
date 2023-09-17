@@ -1,18 +1,20 @@
 [
 {
   "model": "polls.question",
-  "pk": 1,
+  "pk": 3,
   "fields": {
     "question_text": "If oranges are oranges, what do lemons call?",
-    "pub_date": "2023-09-03T09:21:59Z"
+    "pub_date": "2023-09-03T09:21:59Z",
+    "end_date": "2023-10-28T09:27:41Z"
   }
 },
 {
   "model": "polls.question",
-  "pk": 2,
+  "pk": 4,
   "fields": {
     "question_text": "Look at the backgroup to see the resolution of this picture.",
-    "pub_date": "2023-09-03T10:22:41Z"
+    "pub_date": "2023-09-03T10:22:41Z",
+    "end_date": "2023-09-10T12:51:42Z"
   }
 },
 {
@@ -20,8 +22,7 @@
   "pk": 6,
   "fields": {
     "question": 3,
-    "choice_text": "Lemon",
-    "votes": 0
+    "choice_text": "Lemon"
   }
 },
 {
@@ -29,8 +30,7 @@
   "pk": 7,
   "fields": {
     "question": 3,
-    "choice_text": "Yellow",
-    "votes": 0
+    "choice_text": "Yellow"
   }
 },
 {
@@ -38,8 +38,7 @@
   "pk": 8,
   "fields": {
     "question": 4,
-    "choice_text": "144p",
-    "votes": 0
+    "choice_text": "144p"
   }
 },
 {
@@ -47,8 +46,7 @@
   "pk": 9,
   "fields": {
     "question": 4,
-    "choice_text": "240p",
-    "votes": 0
+    "choice_text": "240p"
   }
 },
 {
@@ -56,8 +54,7 @@
   "pk": 10,
   "fields": {
     "question": 4,
-    "choice_text": "360p",
-    "votes": 0
+    "choice_text": "360p"
   }
 },
 {
@@ -65,8 +62,7 @@
   "pk": 11,
   "fields": {
     "question": 4,
-    "choice_text": "480p",
-    "votes": 0
+    "choice_text": "480p"
   }
 },
 {
@@ -74,8 +70,7 @@
   "pk": 12,
   "fields": {
     "question": 4,
-    "choice_text": "720p",
-    "votes": 0
+    "choice_text": "720p"
   }
 },
 {
@@ -83,8 +78,7 @@
   "pk": 13,
   "fields": {
     "question": 4,
-    "choice_text": "1080p",
-    "votes": 0
+    "choice_text": "1080p"
   }
 },
 {
@@ -92,8 +86,7 @@
   "pk": 14,
   "fields": {
     "question": 4,
-    "choice_text": "1440p",
-    "votes": 0
+    "choice_text": "1440p"
   }
 },
 {
@@ -101,8 +94,39 @@
   "pk": 15,
   "fields": {
     "question": 4,
-    "choice_text": "2160p",
-    "votes": 0
+    "choice_text": "2160p"
+  }
+},
+{
+  "model": "polls.vote",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "choice": 6
+  }
+},
+{
+  "model": "polls.vote",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "choice": 13
+  }
+},
+{
+  "model": "polls.vote",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "choice": 7
+  }
+},
+{
+  "model": "polls.vote",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "choice": 15
   }
 }
 ]
