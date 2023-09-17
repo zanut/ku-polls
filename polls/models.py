@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -9,7 +10,7 @@ class Question(models.Model):
     A question that can be voted on.
     """
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published', auto_now_add=False)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
     end_date = models.DateTimeField('ending date', null=True, blank=True)
 
     def was_published_recently(self):
@@ -43,16 +44,14 @@ class Question(models.Model):
         Checks if the question is published.
         :return: True if the question is published, False otherwise.
         """
-        now = timezone.now()
-        if self.end_date is None:
-            return now >= self.pub_date
-        return self.pub_date <= now <= self.end_date
+        return self.pub_date < timezone.now()
 
     def can_vote(self):
         """
         Checks if the question can be voted on.
         """
-        return self.is_published()
+        if self.is_published():
+            return self.end_date is None or self.end_date >= timezone.now()
 
     def __str__(self):
         """
@@ -68,9 +67,22 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+    @property
+    def votes(self):
+        """
+        Returns the number of votes for this choice.
+        """
+        return self.vote_set.count()
 
     def __str__(self):
         """
         Returns a string representation of the choice.
         """
         return self.choice_text
+
+
+class Vote(models.Model):
+    """Record a choice for a question made by a user."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+
