@@ -1,0 +1,56 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$2k4EwP4hw5oi3xi4rATfAb$U6GbBRwuF9Juw/OkmT8HQz9N21hWQP4K+Q5GyQOoYfc=",
+    "last_login": "2023-09-17T04:55:48.292Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "chanun.s@ku.th",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-09-03T07:11:16.353Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$NuFHOgBSpEnaFGhTKCB4GZ$Ij2vEfc9jpTn6yIyk5mUsvStHAKG8Bkeexeni0jCN+U=",
+    "last_login": "2023-09-17T05:12:55.572Z",
+    "is_superuser": false,
+    "username": "harry",
+    "first_name": "Harry",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-12T07:41:29.346Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$ClNWSsUOdvejZEdh9DApCq$W07vqyUfp5fQaQV9blsOFGd0XDCymVXBauNQmWEdBFA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "potter",
+    "first_name": "Potter",
+    "last_name": "Goggle",
+    "email": "potter.s@hogwart.ac.uk",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-17T06:02:14.001Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
