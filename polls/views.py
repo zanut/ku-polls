@@ -41,6 +41,7 @@ class DetailView(generic.DetailView):
         Handel the Get request for the detail view.
         """
         user = request.user
+        voted = None
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
@@ -53,7 +54,7 @@ class DetailView(generic.DetailView):
             try:
                 voted = question.choice_set.get(vote__user=user)
             except (Vote.DoesNotExist, TypeError):
-                voted = None
+                pass
 
         if not question.can_vote():
             messages.error(request,
