@@ -14,6 +14,7 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 git clone https://github.com/zanut/ku-polls.git
 chdir ku-polls
 pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
