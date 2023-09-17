@@ -10,7 +10,7 @@ class Question(models.Model):
     A question that can be voted on.
     """
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published', auto_now_add=False)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
     end_date = models.DateTimeField('ending date', null=True, blank=True)
 
     def was_published_recently(self):
@@ -44,16 +44,14 @@ class Question(models.Model):
         Checks if the question is published.
         :return: True if the question is published, False otherwise.
         """
-        now = timezone.now()
-        if self.end_date is None:
-            return now >= self.pub_date
-        return self.pub_date <= now <= self.end_date
+        return self.pub_date < timezone.now()
 
     def can_vote(self):
         """
         Checks if the question can be voted on.
         """
-        return self.is_published()
+        if self.is_published():
+            return self.end_date is None or self.end_date >= timezone.now()
 
     def __str__(self):
         """
