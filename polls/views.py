@@ -40,17 +40,26 @@ class DetailView(generic.DetailView):
         """
         Handel the Get request for the detail view.
         """
+        user = request.user
         try:
             question = get_object_or_404(Question, pk=kwargs["pk"])
         except Http404:
             messages.error(request,
                            f"Poll number {kwargs['pk']} does not exists.")
             return redirect("polls:index")
-        if not question.is_published():
+
+        # get_vote if this account already voted to see old result
+        if user.is_authenticated:
+            try:
+                voted = question.choice_set.get(vote__user=user)
+            except (Vote.DoesNotExist, TypeError):
+                voted = None
+
+        if not question.can_vote():
             messages.error(request,
                            f"Poll number {question.id} Already closed.")
             return redirect("polls:index")
-        return render(request, self.template_name, {"question": question})
+        return render(request, self.template_name, {"question": question, "voted": voted})
 
 
 class ResultsView(generic.DetailView):
@@ -107,3 +116,4 @@ def vote(request, question_id):
     messages.success(request, f"Your vote for '{selected_choice}' has been saved.")
     return HttpResponseRedirect(
             reverse('polls:results', args=(question.id,)))
+

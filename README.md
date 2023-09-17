@@ -17,6 +17,13 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+## demo user account
+
+| username | password  |
+|----------|-----------|
+| harry    | hackeme22 |
+| potter   | hackeme22 |
+
 ## Project Documents
 
 All project documents are in the [Project Wiki](../../wiki/Home).
