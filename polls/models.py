@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import ForeignKey
 from django.utils import timezone
 
 
@@ -67,6 +68,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
     @property
     def votes(self):
         """
@@ -83,6 +85,5 @@ class Choice(models.Model):
 
 class Vote(models.Model):
     """Record a choice for a question made by a user."""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user: ForeignKey = models.ForeignKey(User, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
-

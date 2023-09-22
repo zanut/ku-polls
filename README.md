@@ -8,15 +8,23 @@ additional features.
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at Kasetsart University.
 
-## Install and Run
 
-```
-git clone https://github.com/zanut/ku-polls.git
-chdir ku-polls
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
+## Install and configure
+Here is how to install [Installation.md](Installation.md)
+
+## Run the server
+1. change directory to the project root  
+```cd ku-polls```
+2. activate the virtual environment  
+```venv\Scripts\activate``` (Windows)  
+```source venv/bin/activate``` (MacOS, Linux)
+3. run the server  
+```python manage.py runserver```
+4. close the server  
+```Ctrl-C``` (Windows)  
+```Control-C``` (MacOS, Linux)
+5. deactivate the virtual environment  
+```deactivate```
 
 ## demo user account
 

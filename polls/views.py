@@ -17,10 +17,11 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """
-        Return the last five published questions (not including those set to be
+        Return the all published questions (not including those set to be
         published in the future).
         """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by(
+            '-pub_date')
 
 
 class DetailView(generic.DetailView):
@@ -53,14 +54,16 @@ class DetailView(generic.DetailView):
         if user.is_authenticated:
             try:
                 voted = question.choice_set.get(vote__user=user)
-            except (Vote.DoesNotExist, TypeError):
-                pass
+            except (Vote.DoesNotExist, TypeError, Choice.DoesNotExist):
+                voted = None
 
         if not question.can_vote():
             messages.error(request,
                            f"Poll number {question.id} Already closed.")
             return redirect("polls:index")
-        return render(request, self.template_name, {"question": question, "voted": voted})
+
+        return render(request, self.template_name,
+                      {"question": question, "voted": voted})
 
 
 class ResultsView(generic.DetailView):
@@ -85,6 +88,7 @@ class ResultsView(generic.DetailView):
                            f"Poll number {question.id} Already closed.")
             return redirect("polls:index")
         return render(request, self.template_name, {"question": question})
+
 
 @login_required
 def vote(request, question_id):
@@ -114,7 +118,7 @@ def vote(request, question_id):
         # no matching vote - create a new vote object
         vote = Vote.objects.create(user=this_user, choice=selected_choice)
     vote.save()
-    messages.success(request, f"Your vote for '{selected_choice}' has been saved.")
+    messages.success(request,
+                     f"Your vote for '{selected_choice}' has been saved.")
     return HttpResponseRedirect(
-            reverse('polls:results', args=(question.id,)))
-
+        reverse('polls:results', args=(question.id,)))
