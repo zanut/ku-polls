@@ -20,7 +20,7 @@ Here is how to install [Installation.md](Installation.md)
 ```python manage.py runserver```
 4. close the server  
 ```Ctrl-C``` (Windows)  
-```Command-C``` (MacOS, Linux)
+```Control-C``` (MacOS, Linux)
 5. deactivate the virtual environment  
 ```deactivate```
 

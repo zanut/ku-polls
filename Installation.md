@@ -6,11 +6,14 @@
 ```python -m venv venv```
 4. create .env file in the project from sample.env  
 ```cp sample.env .env```
-5. configure the .env setting details already explaned in the .env file
+5. configure the .env setting details already explaned in the .env file  
 ```nano .env```
-6. install dependencies  
+6. activate the virtual environment  
+```venv\Scripts\activate``` (Windows)  
+```source venv/bin/activate``` (MacOS, Linux)
+7. install dependencies  
 ```pip install -r requirements.txt```
-7. run migrations  
+8. run migrations  
 ```python manage.py migrate```
-8. load data from the data/polls-v3.json and data/users-v1.json  
+9. load data from the data/polls-v3.json and data/users-v1.json  
 ```python manage.py loaddata data/polls-v3.json data/users-v1.json```
