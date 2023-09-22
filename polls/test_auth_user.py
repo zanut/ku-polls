@@ -88,10 +88,5 @@ class UserAuthTest(django.test.TestCase):
         response = self.client.post(vote_url, form_data)
         # should be redirected to the login page
         self.assertEqual(response.status_code, 302)  # could be 303
-        # TODO: this fails because reverse('login') does not include
-
-        # the query parameter ?next=/polls/1/vote/
-        # How to fix it?
-        # self.assertRedirects(response, reverse('login') )
         login_with_next = f"{reverse('login')}?next={vote_url}"
         self.assertRedirects(response, login_with_next)
