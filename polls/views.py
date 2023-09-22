@@ -53,13 +53,14 @@ class DetailView(generic.DetailView):
         if user.is_authenticated:
             try:
                 voted = question.choice_set.get(vote__user=user)
-            except (Vote.DoesNotExist, TypeError):
-                pass
+            except (Vote.DoesNotExist, TypeError, Choice.DoesNotExist):
+                voted = None
 
         if not question.can_vote():
             messages.error(request,
                            f"Poll number {question.id} Already closed.")
             return redirect("polls:index")
+
         return render(request, self.template_name, {"question": question, "voted": voted})
 
 
