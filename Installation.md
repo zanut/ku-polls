@@ -16,4 +16,7 @@
 8. run migrations  
 ```python manage.py migrate```
 9. load data from the data/polls-v3.json and data/users-v1.json  
-```python manage.py loaddata data/polls-v3.json data/users-v1.json```
+```python manage.py loaddata data/polls.json data/users-v1.json```
+
+extra: if you want to load votes data  
+```python manage.py loaddata data/votes.json```
