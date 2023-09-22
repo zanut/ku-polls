@@ -68,6 +68,7 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
     @property
     def votes(self):
         """
@@ -86,4 +87,3 @@ class Vote(models.Model):
     """Record a choice for a question made by a user."""
     user: ForeignKey = models.ForeignKey(User, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
-
